@@ -3,7 +3,7 @@
 countries=(canada mexico)
 transportations=(truck ship air pipeline rail)
 
-echo "[" > transBorder.json
+echo "var dataset = [" > transBorder.js
 
 for country in "${countries[@]}"
 do
@@ -16,9 +16,9 @@ do
 			importValue=`cut -d ',' -f 3 <<< $line`
 			exportValue=`cut -d ',' -f 5 <<< $line`
 
-			echo "[{\"country\":\"$country\", \"transportation\":\"$transportation\", \"year\":$year, \"month\":$month, \"import\":$importValue, \"export\":$exportValue}]," >> transBorder.json
+			echo "{\"country\":\"$country\", \"transportation\":\"$transportation\", \"year\":$year, \"month\":$month, \"import\":$importValue, \"export\":$exportValue}," >> transBorder.js
 		done
 	done
 done
 
-echo "]" >> transBorder.json
+echo "]" >> transBorder.js

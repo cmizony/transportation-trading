@@ -76,25 +76,53 @@
 
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-					<li class="active"><a href="#canada-tab" data-toggle="tab">
+					<li class="active"><a href="#country-tab" data-toggle="tab" data-country="canada">
 						<img src="http://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Flag_of_Canada.svg/125px-Flag_of_Canada.svg.png" width="30px"> 
 						Canada
 					</a></li>
-					<li><a href="#mexico-tabe" data-toggle="tab">
+					<li><a href="#country-tab" data-country="mexico" data-toggle="tab">
 						<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/125px-Flag_of_Mexico.svg.png" width="30px"> 
 						Mexico
 					</a></li>
 				</ul>
+				<br>
 
 				<!-- Tab panes -->
 				<div class="tab-content">
 
-					<div class="tab-pane active" id="canada-tab">
-						Canada
-					</div>
+					<div class="tab-pane active" id="country-tab">
 
-					<div class="tab-pane" id="mexico-tab">
-						Mexico
+						<div class="row">
+							<div class="col-md-6">
+
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<i class="fa fa-sign-in"></i> Importation
+									</div>
+									<div class="panel-body">
+										<b>Trading value per transportation type</b>
+										<div id="line-chart-import"></div>
+										<hr>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-md-6">
+
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<i class="fa fa-sign-out"></i> Exportation
+									</div>
+									<div class="panel-body">
+										<b>Trading value per transportation type</b>
+										<div id="line-chart-export"></div>
+										<hr>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+
 					</div>
 
 				</div>
@@ -109,15 +137,35 @@
 		<script src="bower_components/d3/d3.js" charset="utf-8"></script>
 
 		<!-- JS CHARTS -->
+		<script src="dataset/transBorder.js"></script>
 		<script src="assets/charts/line_chart.js"></script>
 
 		<!-- BOOTSTRAP JS -->
 		<script>
 			$(function() {
+
+				// Render charts function
 				var renderCharts = function (country) {
-					console.log('Render charts for '+country);
+
+					// Line charts
+					var lineChart = getLineChart()
+						.data(dataset.filter(function(row) {
+							return row.country == country;
+						}))
+						.width($("#line-chart-import").width())
+						.height(300);
+
+					lineChart.yAxis("export");
+					d3.select("#line-chart-export").call(lineChart);
+
+					lineChart.yAxis("import");
+					d3.select("#line-chart-import").call(lineChart);
 				};
 
+				// Bind tab event & init render
+				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+					renderCharts($(e.target).data("country"));
+				});
 				renderCharts('canada');
 			});
 		</script>
