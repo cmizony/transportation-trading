@@ -1,0 +1,10 @@
+{
+  "name": "Transportation trading",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": ">=1.9.1",
+    "d3": "~3.5.5",
+    "components-font-awesome": "~4.3.0",
+    "bootstrap": "~3.3.2"
+  }
+}

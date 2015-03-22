@@ -1,0 +1,11 @@
+{
+	"name": "datatable_tool_demo",
+	"description": "Demo application",
+	"dependencies": {
+		"bower": "~1.3.12",
+		"express": "~4.11.2"
+	},
+	"scripts": {
+		"postinstall": "bower install"
+	}
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="datatableTool">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Transportation trading</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" href="assets/css/custom.css">
+
+	</head>
+	<body>
+
+		<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<i class="fa fa-dropbox"></i> Transportation Trading
+				</a>
+			</div>
+		</div>
+		</nav>
+
+		<div class="container">
+
+		</div>
+
+		<!-- JS LIBRARIES -->
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/d3/d3.js" charset="utf-8"></script>
+
+		<!-- JS CHARTS -->
+		<script src="assets/charts/line_chart.js"></script>
+
+		<!-- BOOTSTRAP JS -->
+		<script>
+			$(function() {
+				var renderCharts = function (country) {
+					console.log('Render charts for '+country);
+				};
+
+				renderCharts('canada');
+			});
+		</script>
+
+	</body>
+</html>
