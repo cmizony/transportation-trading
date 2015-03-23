@@ -13,8 +13,8 @@ do
 		do
 			year=`cut -d ',' -f 1 <<< $line`
 			month=`cut -d ',' -f 2 <<< $line`
-			importValue=`cut -d ',' -f 3 <<< $line`
-			exportValue=`cut -d ',' -f 5 <<< $line`
+			importValue=`cut -d ',' -f 4 <<< $line`
+			exportValue=`cut -d ',' -f 6 <<< $line`
 
 			echo "{\"country\":\"$country\", \"transportation\":\"$transportation\", \"year\":$year, \"month\":$month, \"import\":$importValue, \"export\":$exportValue}," >> transBorder.js
 		done

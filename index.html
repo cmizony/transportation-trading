@@ -150,7 +150,9 @@
 					// Line charts
 					var lineChart = getLineChart()
 						.data(dataset.filter(function(row) {
-							return row.country == country;
+							return row.country == country &&
+								row["import"] < 1000 && // Filter anomalies
+								row["export"] < 1000;
 						}))
 						.width($("#line-chart-import").width())
 						.height(300);
