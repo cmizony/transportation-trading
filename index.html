@@ -44,19 +44,24 @@
 						<tbody>
 							<tr>
 								<td class="col-md-2 active text-center">
-									<p class="text-muted"><i class="fa fa-arrows-h"></i> Pipeline</li>
+									<span class="text-muted"><i class="fa fa-arrows-h"></i> Pipeline</span>
+									<br><input checked type="checkbox" class="filter-transportation" data-transportation="pipeline">
 								</td>
 								<td class="col-md-2 success text-center">
-									<p class="text-success"><i class="fa fa-plane"></i> Air</p>
+									<span class="text-success"><i class="fa fa-plane"></i> Air</span>
+									<br><input checked type="checkbox" class="filter-transportation" data-transportation="air">
 								</td>
 								<td class="col-md-2 warning text-center">
-									<p class="text-warning"><i class="fa fa-train"></i> Rail</p>
+									<span class="text-warning"><i class="fa fa-train"></i> Rail</span>
+									<br><input checked type="checkbox" class="filter-transportation" data-transportation="rail">
 								</td>
 								<td class="col-md-2 danger text-center">
-									<p class="text-danger"><i class="fa fa-truck"></i> Truck</p>
+									<span class="text-danger"><i class="fa fa-truck"></i> Truck</span>
+									<br><input checked type="checkbox" class="filter-transportation" data-transportation="truck">
 								</td>
 								<td class="col-md-2 info text-center">
-									<p class="text-info"><i class="fa fa-ship"></i> Ship</p>
+									<span class="text-info"><i class="fa fa-ship"></i> Ship</span>
+									<br><input checked type="checkbox" class="filter-transportation" data-transportation="ship">
 								</td>
 							</tr>
 						</tbody>
@@ -75,7 +80,7 @@
 			<div role="tabpanel">
 
 				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
+				<ul class="nav nav-tabs" id="countries-tab">
 					<li class="active"><a href="#country-tab" data-toggle="tab" data-country="canada">
 						<img src="http://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Flag_of_Canada.svg/125px-Flag_of_Canada.svg.png" width="30px"> 
 						Canada
@@ -147,10 +152,18 @@
 				// Render charts function
 				var renderCharts = function (country) {
 
+					var country = $("#countries-tab li.active a").data("country");
+					var selectedTransportations = [];
+					$(".filter-transportation").each(function() {
+						if ($(this).is(':checked'))
+							selectedTransportations.push($(this).data("transportation"));
+					});
+
 					// Line charts
 					var lineChart = getLineChart()
 						.data(dataset.filter(function(row) {
 							return row.country == country &&
+								selectedTransportations.indexOf(row.transportation ) != -1 &&
 								row["import"] < 1000 && // Filter anomalies
 								row["export"] < 1000;
 						}))
@@ -164,11 +177,10 @@
 					d3.select("#line-chart-import").call(lineChart);
 				};
 
-				// Bind tab event & init render
-				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-					renderCharts($(e.target).data("country"));
-				});
-				renderCharts('canada');
+				// Bind filters & init
+				$('a[data-toggle="tab"]').on('shown.bs.tab', renderCharts);
+				$("input[type='checkbox']").change(renderCharts);
+				renderCharts();
 			});
 		</script>
 
