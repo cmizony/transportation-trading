@@ -1,3 +1,6 @@
+[![Project Overview](overview.png)](http://transportation-trading.herokuapp.com)
+
+
 # US Transportation Trading
 
 > Application to visualize US export/import data based on transportation type
